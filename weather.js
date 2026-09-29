@@ -1,15 +1,16 @@
 const apiKey = "a3f11a474866fffdf01ce30d1c22cabb";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-const input = document.querySelector("#input");
+const input = document.getElementById("input");
 const button = document.querySelector("#input-row button");
+const weather = document.getElementById("weather");
 
 async function getWeather(city) {
     city = city.trim();
 
     if (city === "") {
         alert("Enter a city!");
-        document.querySelector("#weather").style.display = "none";
+        weather.style.display = "none";
         input.focus();
         return;
     }
@@ -17,7 +18,7 @@ async function getWeather(city) {
 
     if (!response.ok) {
         alert("City not found!");
-        document.querySelector("#weather").style.display = "none";
+        weather.style.display = "none";
         input.value = "";
         input.focus();
         return;
@@ -26,13 +27,13 @@ async function getWeather(city) {
 
     // console.log(data);
 
-    document.querySelector("#city").textContent = data.name;
-    document.querySelector("#temp").textContent = Math.round(data.main.temp) + "°C";
-    document.querySelector("#feels-like").textContent = "Feels like: " + Math.round(data.main.feels_like) + "°C";
-    document.querySelector("#humidity").textContent = "Humidity: " + data.main.humidity + "%";
-    document.querySelector("#wind").textContent = "Wind Speed: " + data.wind.speed + " m/s";
+    document.getElementById("city").textContent = data.name;
+    document.getElementById("temp").textContent = Math.round(data.main.temp) + "°C";
+    document.getElementById("feels-like").innerHTML = "Feels like: <strong>" + Math.round(data.main.feels_like) + "°C </strong>";
+    document.getElementById("humidity").innerHTML = "Humidity: <strong>" + data.main.humidity + "% </strong>";
+    document.getElementById("wind").innerHTML = "Wind Speed: <strong>" + data.wind.speed + " m/s </strong>";
 
-    document.querySelector("#weather").style.display = "block";
+    weather.style.display = "block";
     input.value = "";
 }
 
